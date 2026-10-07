@@ -17,3 +17,5 @@
 3) Les conteneurs sont adaptés au Cloud car sont légers, portables et rapides à démarrer. Ce qui permet de déployer et de multiplier une appli avec toutes ses dépendances sur n'importe quel serveur.
 
 #### Etape 3
+1) un Dockerfile est préférable à la config manuelle car il décrit l'env sous forme de code: la construction est automatique et reproductible ( même résultat sur toute machine).
+2) une image docker est un modèle figé qui contient tout ce qu'il faut pour exécuter une appli ( dépendances, config, appli ...). Elle est construite à partir du dockerfile et ne change pas une fois créée. Un conteneur est une instance en cours d'exécution de cette image ( on peut créer plusieurs conteneurs indépendants à partir d'une même image).
