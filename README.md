@@ -19,3 +19,11 @@
 #### Etape 3
 1) un Dockerfile est préférable à la config manuelle car il décrit l'env sous forme de code: la construction est automatique et reproductible ( même résultat sur toute machine).
 2) une image docker est un modèle figé qui contient tout ce qu'il faut pour exécuter une appli ( dépendances, config, appli ...). Elle est construite à partir du dockerfile et ne change pas une fois créée. Un conteneur est une instance en cours d'exécution de cette image ( on peut créer plusieurs conteneurs indépendants à partir d'une même image).
+
+#### Etape 4
+1) Docker Compose est préférable au lancement manuel car il permet de démarrer, arrêter et reconstruire tous les conteneurs d’une application en une seule commande (docker compose up / down). De plus, la configuration de tous les services d'une application est regroupée dans un fichier donc on a moins de commande à saisir, moins d’erreurs et un déploiement reproductible.
+2) docker-compose.yml décrit les services de l’application et leur configuration. C'est le fichier sur lequel Docker Compose s'appuie pour créer et lancer les conteneurs.
+3) Docker Compose atteint ses limites dès qu’on sort d’une seule machine donc quand on doit répartir les conteneurs sur plusieurs machines.
+## TP2
+### Checkpoints
+#### Etape 1
