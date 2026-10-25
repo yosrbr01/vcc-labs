@@ -48,3 +48,9 @@
     Groupe de sécurité : Une sorte de firewall appliquée directement à la VM. Un ensemble de règles qui autorisent ou bloquent des flux. Le traffic entrant étant bloqué par défaut, il doit contenir une règle autorisant TCP sur le port 22 pour que la connexion SSH soit acceptée.
 
 4) Openstack distingue les adresses IP privées et les adresses IP flottantes publiques pour économiser les adresses publiques tout en assurant la connectivité réseau. Les machines virtuelles communiquent entre elles grace à leurs adresses privées et peuvent accèder à Internet via le routeur utilisant le NAT. Une IP flottante est attribuée uniquement aux machines virtuelles qui doivent etre accessible depuis l'extérieur.
+
+#### Etape 3
+
+1) Les security groups agissent comme un pare-feu au niveau de chaque machines pour autoriser ou bloquer certains flux. Puisque l'IP flottante permet de se connecter à la VM depuis l'extérieur, cela peut compromettre la sécurité de la machine. Il faut donc établir la liste des flux autorisés (par exemple SSH sur port 22 ou hello-api sur port 5000) et bloquer tout le reste.
+2) Une requete HTTP envoyée depuis l'ordinateur vers l'application hello-api (http://<Ipflottante>:5000) traverse le réseau Internet jusqu'au routeur du réseau dans lequel se trouve la VM qui hébérge l'application. Le routeur effectue un NAT (IP flottante->IP privée de la VM) et transmet une requete sur le réseau privé. La requete ensuite atteint la VM si et seulement si le groupe de sécurité autorise le traffic TCP entrant sur le port 5000.
+   
