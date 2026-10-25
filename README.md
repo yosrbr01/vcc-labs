@@ -31,3 +31,20 @@
 2) Un fournisseur Cloud propose de nombreuses catégories de ressources pour offrir un maximum de flexibilité à ses utilisateurs. Son offre est découpée en brique indépendantes : calcul, stockage et réseau. Chaque client peut alors composer l'infrastructure adaptée à ses besoins. Ce découpage permet aussi au fournisseur de gérer la facturation par type de ressources.
 3) Un paquet envoyé depuis l'extérieur a pour destination l'IP flottante associée à la VM. Il traverse Internet depuis le réseau externe du Cloud jusqu'au routerdefault. Le routeur remplace alors l'IP flottante par l'adresse privée de la VM . Il transmet ensuite le paquet via son interface 192.168.10.1 sur le réseau net-discovery. Avant d'atteindre la VM, le paquet est filtré par le groupe de sécurité.
    
+#### Etape 2
+
+1) Pour se connecter en SSH à une nouvelle VM, il faut :
+   
+               1- La placer sur un réseau privé relié au routeur externe
+               2- Lui associer un groupe de sécurité autorisant SSH (TCP 22)
+               3- Créer une paire de clés à la création de l'instance et télécharger la clé privée
+               4- Lui associer une IP flottante
+               5- Lancer depuis la machine hote : ssh -i nom_cle.pem <login>@<IPflottante>
+
+3) Adresse IP privée : C'est l'identité de la VM au sein du réseau privé, utilisée pour communiquer avec les autres VM et avec le routeur. Elle n'est pas joignable depuis Internet. Dans la connexion SSH, c'est la destination finale du paquet une fois qu'il est entré dans le réseau privé.
+   
+    Adresse IP flottante : c'est une adresse publique, gérée par le routeur et associée logiquement à une VM. C'est le point d'entrée depuis l'extérieur car la machine hote se connecte à cette adresse et le routeur traduit l'IP flottante en IP privéee de la VM.
+
+    Groupe de sécurité : Une sorte de firewall appliquée directement à la VM. Un ensemble de règles qui autorisent ou bloquent des flux. Le traffic entrant étant bloqué par défaut, il doit contenir une règle autorisant TCP sur le port 22 pour que la connexion SSH soit acceptée.
+
+4) Openstack distingue les adresses IP privées et les adresses IP flottantes publiques pour économiser les adresses publiques tout en assurant la connectivité réseau. Les machines virtuelles communiquent entre elles grace à leurs adresses privées et peuvent accèder à Internet via le routeur utilisant le NAT. Une IP flottante est attribuée uniquement aux machines virtuelles qui doivent etre accessible depuis l'extérieur.
