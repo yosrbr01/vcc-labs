@@ -27,3 +27,7 @@
 ## TP2
 ### Checkpoints
 #### Etape 1
+1) Le réseau privé permet aux VM au sein de ce même réseau de communiquer entre elles tout en étant isolés des autres client du Cloud. Le routeur externe relie le réseau privée au réseau publique. Il sert de passerelle pour que les VM accèdent à Internet (NAT) et permet de les rendre joignables depuis l'extérieur grace aux IP flottantes.
+2) Un fournisseur Cloud propose de nombreuses catégories de ressources pour offrir un maximum de flexibilité à ses utilisateurs. Son offre est découpée en brique indépendantes : calcul, stockage et réseau. Chaque client peut alors composer l'infrastructure adaptée à ses besoins. Ce découpage permet aussi au fournisseur de gérer la facturation par type de ressources.
+3) Un paquet envoyé depuis l'extérieur a pour destination l'IP flottante associée à la VM. Il traverse Internet depuis le réseau externe du Cloud jusqu'au routerdefault. Le routeur remplace alors l'IP flottante par l'adresse privée de la VM . Il transmet ensuite le paquet via son interface 192.168.10.1 sur le réseau net-discovery. Avant d'atteindre la VM, le paquet est filtré par le groupe de sécurité.
+   
