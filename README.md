@@ -61,6 +61,9 @@
     Un snapshot , en contree partie est une copie de l'état d'une VM existante à un instant donné, avec ses logiciels, sa configuration et ses données. Il est créé par l'utilisateur et sert à sauvegarder, restaurer ou dupliquer cette VM.
 
 2) Le redimensionnement d’une VM permet de modifier ses ressources (CPU, RAM, disque) selon les besoins, sans recréer la machine ni perdre ses données et sa configuration. On peut donc augmenter les ressources lors d’un pic pour garder de bonnes performances, puis les réduire quand la demande baisse pour réduire les coûts, car on paie ce qu'on utilise.
+3) Un administrateur système part d’un snapshot quand la nouvelle machine doit reprendre la configuration d’une machine existante (environnement, paquets, configuration). C’est le cas pour dupliquer un serveur, créer un environnement de test identique à la production ou restaurer rapidement un état connu. Il gagne du temps et évite les erreurs de reconfiguration.
+
+    Si la machine n’a pas de rapport avec l’existante ou demande beaucoup de modifications, il vaut mieux partir d’une image vierge, plus propre et sans héritage inutile.
    
 
 ## TP3
