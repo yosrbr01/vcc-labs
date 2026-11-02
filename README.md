@@ -53,4 +53,68 @@
 
 1) Les security groups agissent comme un pare-feu au niveau de chaque machines pour autoriser ou bloquer certains flux. Puisque l'IP flottante permet de se connecter à la VM depuis l'extérieur, cela peut compromettre la sécurité de la machine. Il faut donc établir la liste des flux autorisés (par exemple SSH sur port 22 ou hello-api sur port 5000) et bloquer tout le reste.
 2) Une requete HTTP envoyée depuis l'ordinateur vers l'application hello-api (http://<Ipflottante>:5000) traverse le réseau Internet jusqu'au routeur du réseau dans lequel se trouve la VM qui hébérge l'application. Le routeur effectue un NAT (IP flottante->IP privée de la VM) et transmet une requete sur le réseau privé. La requete ensuite atteint la VM si et seulement si le groupe de sécurité autorise le traffic TCP entrant sur le port 5000.
-   
+
+
+## TP3
+### Checkpoints
+<mxfile>
+  <diagram name="TP3">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="internet" value="Internet" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="0" width="140" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="router" value="routerdefault" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="130" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="net" value="Reseau prive (1 seul reseau OpenStack)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="0" y="230" width="900" height="330" as="geometry" />
+        </mxCell>
+
+        <mxCell id="calc" value="VM calc-vm (insa-small)&lt;br&gt;Conteneur : calc-service&lt;br&gt;Port 80&lt;br&gt;IP flottante" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="360" y="270" width="180" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sum" value="VM sum-vm (insa-tiny)&lt;br&gt;Conteneur : sum-service&lt;br&gt;Port 50001" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="20" y="450" width="190" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="sub" value="VM sub-vm (insa-tiny)&lt;br&gt;Conteneur : sub-service&lt;br&gt;Port 50002" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="240" y="450" width="190" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="mul" value="VM mul-vm (insa-tiny)&lt;br&gt;Conteneur : mul-service&lt;br&gt;Port 50003" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="470" y="450" width="190" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="div" value="VM div-vm (insa-tiny)&lt;br&gt;Conteneur : div-service&lt;br&gt;Port 50004" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="690" y="450" width="190" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" value="HTTP 80 / SSH 22" style="endArrow=classic;startArrow=classic;html=1;" edge="1" parent="1" source="internet" target="router">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="IP flottante" style="endArrow=classic;startArrow=classic;html=1;" edge="1" parent="1" source="router" target="calc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="TCP 50001" style="endArrow=classic;html=1;" edge="1" parent="1" source="calc" target="sum">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="TCP 50002" style="endArrow=classic;html=1;" edge="1" parent="1" source="calc" target="sub">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="TCP 50003" style="endArrow=classic;html=1;" edge="1" parent="1" source="calc" target="mul">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="TCP 50004" style="endArrow=classic;html=1;" edge="1" parent="1" source="calc" target="div">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
