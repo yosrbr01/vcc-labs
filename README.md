@@ -54,6 +54,14 @@
 1) Les security groups agissent comme un pare-feu au niveau de chaque machines pour autoriser ou bloquer certains flux. Puisque l'IP flottante permet de se connecter à la VM depuis l'extérieur, cela peut compromettre la sécurité de la machine. Il faut donc établir la liste des flux autorisés (par exemple SSH sur port 22 ou hello-api sur port 5000) et bloquer tout le reste.
 2) Une requete HTTP envoyée depuis l'ordinateur vers l'application hello-api (http://<Ipflottante>:5000) traverse le réseau Internet jusqu'au routeur du réseau dans lequel se trouve la VM qui hébérge l'application. Le routeur effectue un NAT (IP flottante->IP privée de la VM) et transmet une requete sur le réseau privé. La requete ensuite atteint la VM si et seulement si le groupe de sécurité autorise le traffic TCP entrant sur le port 5000.
 
+#### Etape 4 
+
+1) Une image officielle est un modèle de système (par exemple Ubuntu) fourni et maintenu par le fournisseur cloud. Elle est générique, ne contient pas de donnée utilisateur et n'est liée à aucune VM. Elle sert pour créer de nouvelles instances.
+
+    Un snapshot , en contree partie est une copie de l'état d'une VM existante à un instant donné, avec ses logiciels, sa configuration et ses données. Il est créé par l'utilisateur et sert à sauvegarder, restaurer ou dupliquer cette VM.
+
+2) Le redimensionnement d’une VM permet de modifier ses ressources (CPU, RAM, disque) selon les besoins, sans recréer la machine ni perdre ses données et sa configuration. On peut donc augmenter les ressources lors d’un pic pour garder de bonnes performances, puis les réduire quand la demande baisse pour réduire les coûts, car on paie ce qu'on utilise.
+   
 
 ## TP3
 ### Checkpoints
